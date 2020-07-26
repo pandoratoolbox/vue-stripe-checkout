@@ -20,8 +20,8 @@ export default {
       type: String,
       required: true,
     },
-    amount: {
-      type: Number,
+    clientSecret: {
+      type: String,
     },
     stripeAccount: {
       type: String,
@@ -101,7 +101,10 @@ export default {
             ...this.card
           };
           if (this.amount) data.amount = this.amount;
-          const { token, error } = await this.stripe.createToken(data);
+          if (!this.client_secret) console.error("No client secret."); return;
+          const { paymentIntent, error } = await this.stripe.confirmCardPayment(this.client_secret, { payment_method: {
+            card: data
+          }});
           if (error) {
             const errorElement = document.getElementById('card-errors');
             errorElement.textContent = error.message;
@@ -109,7 +112,7 @@ export default {
             this.$emit('error 1', error);
             return;
           }
-          this.$emit('token', token);
+          this.$emit('paymentIntent', paymentIntent);
         } catch (error) {
           console.error(error);
           this.$emit('error', error);
