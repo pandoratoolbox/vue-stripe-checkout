@@ -95,6 +95,7 @@ export default {
       
       this.form.addEventListener('submit', async (event) => {
         try {
+          this.console.log("submitted")
           this.$emit('loading', true);
           event.preventDefault();
           const data = {
