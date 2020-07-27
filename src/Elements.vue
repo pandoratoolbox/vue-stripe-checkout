@@ -69,6 +69,7 @@ export default {
   },
   methods: {
     submit () {
+      console.log("submitted")
       this.$refs.submitButtonRef.click();
     },
   },
@@ -94,8 +95,9 @@ export default {
       });
       
       this.form.addEventListener('submit', async (event) => {
+        console.log("submitted")
         try {
-          this.console.log("submitted")
+
           this.$emit('loading', true);
           event.preventDefault();
           const data = {
