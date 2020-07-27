@@ -80,6 +80,8 @@ export default {
         apiVersion: this.apiVersion,
         locale: this.locale,
       };
+      console.log("test")
+      console.error("test 2")
       this.stripe = window.Stripe(this.pk, options);
       this.elements = this.stripe.elements();
       this.card = this.elements.create('card', { style: this.styleObject || this.style });
